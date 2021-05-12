@@ -8,7 +8,9 @@ func main() {
 	// Append to slice
 	cards = append(cards, "Six of Clubs") // Note that append returns a new slice; it doesn't modifies the original one
 
-	fmt.Println(cards)
+	for i, card := range cards {
+		fmt.Println(i, card)
+	}
 }
 
 func newCard() string {
