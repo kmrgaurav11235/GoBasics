@@ -3,9 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	card := newCard()
+	cards := []string{"Ace of Diamond", newCard()}
 
-	fmt.Println(card)
+	// Append to slice
+	cards = append(cards, "Six of Clubs") // Note that append returns a new slice; it doesn't modifies the original one
+
+	fmt.Println(cards)
 }
 
 func newCard() string {
