@@ -27,3 +27,9 @@ func (d deck) print() {
 		fmt.Println(i, card)
 	}
 }
+
+// Go supports multiple return values
+func deal(d deck, handSize int) (deck, deck) {
+	// Slice range syntax variable[startIndexInclusive:endIndexNonInclusive]. Default values are 0 and 'n' respectively.
+	return d[:handSize], d[handSize:]
+}
