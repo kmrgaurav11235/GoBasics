@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	/* 	cards := newDeck()
 
@@ -11,10 +9,11 @@ func main() {
 	   	remainingCards.print()
 	*/
 
-	str := "Hello World!"
+	/* str := "Hello World!"
 	// Type conversion in Go
-	fmt.Println([]byte(str))
+	fmt.Println([]byte(str)) */
 
 	cards := newDeck()
-	fmt.Println("Deck:\n" + cards.toString())
+	// fmt.Println("Deck:\n" + cards.toString())
+	cards.saveToFile("my_cards")
 }
