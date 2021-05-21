@@ -16,4 +16,11 @@ func main() {
 	cards := newDeck()
 	// fmt.Println("Deck:\n" + cards.toString())
 	cards.saveToFile("my_cards")
+
+	newCards := newDeckFromFile("my_cards")
+	newCards.print()
+
+	// Error check
+	// anotherCards := newDeckFromFile("invalid_file")
+	// anotherCards.print()
 }

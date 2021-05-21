@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -44,4 +45,19 @@ func (d deck) toString() string {
 
 func (d deck) saveToFile(fileName string) error {
 	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(fileName string) deck {
+	byteSlice, err := ioutil.ReadFile(fileName)
+
+	// This pattern of checking the error immediately after function call is a very common pattern in Go.
+	if err != nil {
+		fmt.Println("[ERROR]:", err)
+		// Exit causes the current program to exit with the given status code. Parameter 0 indicates success, non-zero an error.
+		// The program terminates immediately; deferred functions are not run
+		os.Exit(1)
+	}
+
+	s := strings.Split(string(byteSlice), ",") // string slice
+	return deck(s)
 }
