@@ -16,7 +16,7 @@ func newDeck() deck {
 	cards := deck{}
 
 	cardSuits := []string{"Spades", "Clubs", "Hearts", "Diamonds"}
-	cardValues := []string{"Ace", "One", "Two", "Three"}
+	cardValues := []string{"Ace", "Two", "Three", "Four"}
 
 	// "_" tells Go that this value will not be used. Without it, we will get "declared but not used" error.
 	for _, suit := range cardSuits {
