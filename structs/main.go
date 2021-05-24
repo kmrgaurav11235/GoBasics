@@ -8,16 +8,16 @@ type contactInfo struct {
 }
 
 type person struct {
-	firstName string
-	lastName  string
-	contact   contactInfo
+	firstName   string
+	lastName    string
+	contactInfo // is equivalent to "contactInfo contactInfo"
 }
 
 func main() {
 	leto := person{
 		firstName: "Leto",
 		lastName:  "Atreides",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email:   "leto.da.boss@caladan.gov",
 			zipCode: 560076,
 		},
