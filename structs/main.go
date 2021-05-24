@@ -27,5 +27,9 @@ func main() {
 		This is required when we define structs using multiple lines.
 	*/
 
-	fmt.Printf("%+v \n", leto)
+	leto.print()
+}
+
+func (p person) print() {
+	fmt.Printf("%+v \n", p)
 }
