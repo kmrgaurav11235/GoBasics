@@ -27,7 +27,13 @@ func main() {
 		This is required when we define structs using multiple lines.
 	*/
 
-	leto.print()
+	leto.updateFitstName("Paul")
+	leto.print() // This will print "Leto" not "Paul"
+}
+
+func (p person) updateFitstName(newFirstName string) {
+	// In Go, the 'p person' is passed by value
+	p.firstName = newFirstName
 }
 
 func (p person) print() {
