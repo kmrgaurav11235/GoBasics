@@ -27,16 +27,23 @@ func main() {
 		This is required when we define structs using multiple lines.
 	*/
 
-	letoPointer := &leto
-	// &variable = Give me the memory address of the value that this variable is pointing at.
-	letoPointer.updateFitstName("Paul")
+	// letoPointer := &leto
+	// // &variable = Give me the memory address of the value that this variable is pointing at.
+	// letoPointer.updateFitstName("Paul")
+
+	// Instead of the above code, we can use a shortcut
+	leto.updateFitstName("Paul")
+
 	leto.print()
 }
 
 // Below *person is a type description. It means we are working with a "Pointer to a person".
 func (pointerToPerson *person) updateFitstName(newFirstName string) {
+	// (*pointerToPerson).firstName = newFirstName
+	// // Above *pointer is an operator. It means, "Give me the value at this memory address".
+
+	// Instead of the above code, we can use a shortcut
 	(*pointerToPerson).firstName = newFirstName
-	// Above *pointer is an operator. It means, "Give me the value at this memory address".
 }
 
 /*
