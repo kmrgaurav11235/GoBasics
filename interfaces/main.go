@@ -12,7 +12,9 @@ The above code basically says:
 */
 
 type englishBot struct{}
-type spanishBot struct{}
+type spanishBot struct{} /* Note that interfaces are implicit, i.e. we don't have to manually say that our
+custom types satisy the interface.
+*/
 
 func main() {
 	eb := englishBot{}
@@ -36,3 +38,9 @@ func (spanishBot) getGreeting() string {
 	// Custom logic for generating Spanish greeting.
 	return "Hola!"
 }
+
+/*
+More points about Interfaces:
+* Interfaces are not generic types. Go (famously) does not have generic types.
+* Interfaces are a contract to help us manage types.
+*/
