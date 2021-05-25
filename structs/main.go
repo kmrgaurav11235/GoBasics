@@ -2,6 +2,25 @@ package main
 
 import "fmt"
 
+func main() {
+	mySlice := []string{"Fear", "is", "the", "mind-killer"}
+	updateSlice(mySlice)
+	fmt.Println(mySlice) // This will print "[Fear is the little-death]" even though we passed by value
+	// This is because slice is a reference type not a value type
+	/*
+		Value Types:
+			* int, float, string, bool, struct
+			* Use pointers to change the value types in a function
+		Reference Types:
+			* slice, map, channel, pointer, function
+			* Don't worry about pointers with reference types
+	*/
+}
+
+func updateSlice(s []string) {
+	s[3] = "little-death"
+}
+
 type contactInfo struct {
 	email   string
 	zipCode int
@@ -13,7 +32,7 @@ type person struct {
 	contactInfo // is equivalent to "contactInfo contactInfo"
 }
 
-func main() {
+func mainOld() {
 	leto := person{
 		firstName: "Leto",
 		lastName:  "Atreides",
