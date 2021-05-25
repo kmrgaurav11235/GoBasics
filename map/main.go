@@ -16,10 +16,20 @@ func main() {
 	// Adding to map
 	colors2["yellow"] = "#FFFF00"
 	colors2["orange"] = "#FFA500"
+	colors2["purple"] = "#800080"
 
 	fmt.Println(colors2)
 
 	// Deleting from map
 	delete(colors1, "green")
 	fmt.Println(colors1)
+
+	printMap(colors2)
+}
+
+func printMap(c map[string]string) {
+	// Iterating over maps
+	for color, hex := range c {
+		fmt.Println("Hexcode for color", color, "is", hex)
+	}
 }
