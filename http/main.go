@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
 
-func main() {
+func oldMain() {
 	resp, err := http.Get("http://google.com") // GET request to google.com
 
 	if err != nil {
@@ -56,4 +57,47 @@ func main() {
 
 	resp.Body.Read(byteSlice)
 	fmt.Println(string(byteSlice))
+}
+
+func main() {
+	resp, err := http.Get("http://google.com")
+
+	if err != nil {
+		fmt.Println("[ERROR]:", err)
+		os.Exit(1)
+	}
+
+	io.Copy(os.Stdout, resp.Body)
+	/*
+		io.Copy() function copies from Reader (source) to Writer (destination):
+		```
+		func Copy(dst Writer, src Reader) (written int64, err error)
+		```
+
+		The Writer interface has a write() fuction that writes from byte slice p to the underlying data stream.
+		```
+		type Writer interface {
+			Write(p []byte) (n int, err error)
+		}
+		```
+		The output for a Writer can be anything like outgoing http request, text file, image, terminal etc.
+
+		In our code:
+		```
+		io.Copy(os.Stdout, resp.Body)
+		```
+		As expected, 'os.Stdout' has a type of '*File'. The 'File' type in Go implements the Writer interface.
+
+		io.Copy	(dst, 													src		)
+					▼														▼
+				Something that implements 'Writer' interface			Something that implements 'Reader' interface
+					▼														▼
+				os.Stdout												resp.Body
+					▼
+				Value of type 'File'
+					▼
+				File has a function 'Write()'
+					▼
+				Therefore, it implements the 'Writer' interface
+	*/
 }
