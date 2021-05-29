@@ -59,7 +59,7 @@ func oldMain() {
 	fmt.Println(string(byteSlice))
 }
 
-func main() {
+func oldMain2() {
 	resp, err := http.Get("http://google.com")
 
 	if err != nil {
@@ -100,4 +100,25 @@ func main() {
 					▼
 				Therefore, it implements the 'Writer' interface
 	*/
+}
+
+// A new struct
+type logWriter struct{}
+
+// Implementing the write() method. logWriter now implements the Writer interface.
+func (logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+	fmt.Println("Just wrote", len(bs), "bytes.")
+	return len(bs), nil
+}
+
+func main() {
+	resp, err := http.Get("http://google.com")
+
+	if err != nil {
+		fmt.Println("[ERROR]:", err)
+		os.Exit(1)
+	}
+
+	io.Copy(logWriter{}, resp.Body)
 }
