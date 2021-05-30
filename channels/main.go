@@ -51,11 +51,16 @@ func main() {
 	// The for-loop below says: Wait for the channel to return a value. Assign that value to l. Then run the 'checkLink'
 	// go Routine for it.
 	for l := range c {
-		// Function literal: Equivalent to lambda
-		go func() {
+		/*
+			* Function literal: Equivalent to lambda
+			* The old code was giving a warning: "loop variable l captured by func literal". So, we now pass l as an argument
+				to the function literal. This is to prevent another Routine from changing the variable while it is being used.
+		*/
+		go func(link string) {
 			time.Sleep(5 * time.Second) // Sleep the current routine for 5 seconds.
-			checkLink(l, c)
-		}() // Don't miss these extra parentheses. The first part defines the function. The parentheses invoke it.
+			checkLink(link, c)
+
+		}(l) // Don't miss these extra parentheses. The first part defines the function. The parentheses invoke it.
 	}
 }
 
