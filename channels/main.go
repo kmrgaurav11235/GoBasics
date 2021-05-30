@@ -39,8 +39,11 @@ func main() {
 
 	// Receiving and printing data from channel.
 	// We need to run `fmt.Println` statement 5 times to capture response from the 5 http calls.
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	// for i := 0; i < len(links); i++ {
+
+	// Infinite loop
+	for {
+		go checkLink(<-c, c)
 	}
 }
 
@@ -49,10 +52,10 @@ func checkLink(link string, c chan string) {
 
 	if err != nil {
 		fmt.Println(link, "might be down!")
-		c <- "Yep, it might be down!"
+		c <- link // Pushing the same link back into the channel so that we can repeat the check for the same URL
 	} else {
 		fmt.Println(link, "is up.")
-		c <- "Yep, it's up."
+		c <- link
 	}
 
 	/*
