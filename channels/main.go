@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -50,7 +51,11 @@ func main() {
 	// The for-loop below says: Wait for the channel to return a value. Assign that value to l. Then run the 'checkLink'
 	// go Routine for it.
 	for l := range c {
-		go checkLink(l, c)
+		// Function literal: Equivalent to lambda
+		go func() {
+			time.Sleep(5 * time.Second) // Sleep the current routine for 5 seconds.
+			checkLink(l, c)
+		}() // Don't miss these extra parentheses. The first part defines the function. The parentheses invoke it.
 	}
 }
 
