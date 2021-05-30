@@ -42,8 +42,15 @@ func main() {
 	// for i := 0; i < len(links); i++ {
 
 	// Infinite loop
-	for {
-		go checkLink(<-c, c)
+	// for {
+	// 	go checkLink(<-c, c)
+	// }
+
+	// Alternative loop syntax
+	// The for-loop below says: Wait for the channel to return a value. Assign that value to l. Then run the 'checkLink'
+	// go Routine for it.
+	for l := range c {
+		go checkLink(l, c)
 	}
 }
 
