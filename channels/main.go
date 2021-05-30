@@ -15,7 +15,20 @@ func main() {
 	}
 
 	for _, link := range links {
-		checkLink(link) // starts a new Go Routine to run this function.
+		go checkLink(link) // This will start a new Go Routine to run this function.
+		/*
+			* The Main Routine will now start new Child Routines to run this function every time the for-loop
+				gets here.
+			* Unfortunately, this code has an issue. Currently, it is not printing anything. This is because the
+				Main Routine is the one that controls when our program exits.
+			* So, once the Main Routine runs the for-loop and spawns all the Child Routines, it exits. Meanwhile,
+				the Child Routines have not finished their http calls yet. So, the child routines cannot print
+				anything to the console.
+			* The way to solve this is Channels. Channels are used to communicate between different Go Routines.
+			* We will create one Channel which will allow communication between all the different Go Routines.
+			* Channels are typed, i.e. the data that we attempt to share between these routines must all be of
+				the same type.
+		*/
 	}
 }
 
