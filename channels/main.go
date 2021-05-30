@@ -14,8 +14,10 @@ func main() {
 		"http://colorhunt.co",
 	}
 
+	c := make(chan string) // channel of type string
+
 	for _, link := range links {
-		go checkLink(link) // This will start a new Go Routine to run this function.
+		// go checkLink(link) // This will start a new Go Routine to run this function.
 		/*
 			* The Main Routine will now start new Child Routines to run this function every time the for-loop
 				gets here.
@@ -29,17 +31,30 @@ func main() {
 			* Channels are typed, i.e. the data that we attempt to share between these routines must all be of
 				the same type.
 		*/
+		go checkLink(link, c) // now, we pass in the channel as well
+		fmt.Println(<-c)      // Receiving and printing data from channel.
 	}
 }
 
-func checkLink(link string) {
+func checkLink(link string, c chan string) {
 	_, err := http.Get(link)
 
 	if err != nil {
 		fmt.Println(link, "might be down!")
+		c <- "Yep, it might be down!"
 	} else {
 		fmt.Println(link, "is up.")
+		c <- "Yep, it's up."
 	}
+
+	/*
+		Sending data with Channels:
+		* ```channel <- 5``` : Send the value '5' into the channel.
+		* ```myNumber <- channel```: Wait for a value to be sent into the channel. When we get one, assign the value
+			to variable 'myNumber'.
+		* ```fmt.Println(<- channel)```: Wait for a value to be sent into the channel. When we get one, print the value
+			to the console.
+	*/
 }
 
 /*
