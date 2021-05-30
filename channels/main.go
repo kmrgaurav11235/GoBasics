@@ -32,7 +32,15 @@ func main() {
 				the same type.
 		*/
 		go checkLink(link, c) // now, we pass in the channel as well
-		fmt.Println(<-c)      // Receiving and printing data from channel.
+	}
+	// Unfortunately, the old program was not concurrent. This is because receiving a message over a channel is a
+	// Blocking operation. So, we need to move the `fmt.Println` statement outside the loop. Otherwise the code
+	// inside the for-loop will be executed sequentially.
+
+	// Receiving and printing data from channel.
+	// We need to run `fmt.Println` statement 5 times to capture response from the 5 http calls.
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
 	}
 }
 
